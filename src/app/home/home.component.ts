@@ -12,19 +12,23 @@ import { ActivatedRoute } from '@angular/router';
 export class HomeComponent implements OnInit {
   foods:Foods[]=[];
 
-  constructor(private foodService : FoodService,private router :ActivatedRoute){}
+  constructor(private foodService : FoodService,private route :ActivatedRoute){}
   
   ngOnInit(): void {
-    this.router.params.subscribe(params =>{
+    this.route.params.subscribe(params =>{
       if(params['searchItem']){
+
         this.foods = this.foodService.getAll().filter(food => food.name.toLowerCase().includes(params['searchItem'].toLowerCase()));
+      }
+      else if(params['tag']){
+        this.foods = this.foodService.getAllFoodByTag(params['tag']);
       }
       else{
         this.foods = this.foodService.getAll();
       }
     })
     //Binding all image to home component when page loads;
-      this.foods = this.foodService.getAll(); 
+     // this.foods = this.foodService.getAll(); 
   }
 
 }

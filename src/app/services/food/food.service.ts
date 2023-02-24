@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Foods } from 'src/app/shared/models/food';
+import { Tag } from 'src/app/shared/models/Tag';
 
 @Injectable({
   providedIn: 'root'
@@ -7,10 +8,28 @@ import { Foods } from 'src/app/shared/models/food';
 export class FoodService {
 
   constructor() { }
-  getAll():Foods[]{
+
+  getAllFoodByTag(tag: string) {
+    return tag == 'All' ? this.getAll() : this.getAll().filter(food => food.tags?.includes(tag));
+  }
+
+  getAllTag():Tag[]{
+    return [
+    { name: 'All', count: 8 },
+    { name: 'FastFood', count: 4 },
+    { name: 'Pizza', count: 3 },
+    { name: 'Lunch', count: 3 },
+    { name: 'SlowFood', count: 2 },
+    { name: 'Hamburger', count: 2 },
+    { name: 'Fry', count: 1 },
+    { name: 'Soup', count: 1 },
+  ]
+  }
+
+  getAll(): Foods[] {
     return [
       {
-        id:1,
+        id: 1,
         name: 'Pizza Pepperoni',
         cookTime: '10-20',
         price: 10,
@@ -21,7 +40,7 @@ export class FoodService {
         tags: ['FastFood', 'Pizza', 'Lunch'],
       },
       {
-        id:2,
+        id: 2,
         name: 'Meatball',
         price: 20,
         cookTime: '20-30',
@@ -32,7 +51,7 @@ export class FoodService {
         tags: ['SlowFood', 'Lunch'],
       },
       {
-        id:3,
+        id: 3,
         name: 'Hamburger',
         price: 5,
         cookTime: '10-15',
@@ -43,7 +62,7 @@ export class FoodService {
         tags: ['FastFood', 'Hamburger'],
       },
       {
-        id:4,
+        id: 4,
         name: 'Fried Potatoes',
         price: 2,
         cookTime: '15-20',
@@ -54,7 +73,7 @@ export class FoodService {
         tags: ['FastFood', 'Fry'],
       },
       {
-        id:5,
+        id: 5,
         name: 'Chicken Soup',
         price: 11,
         cookTime: '40-50',
@@ -65,7 +84,7 @@ export class FoodService {
         tags: ['SlowFood', 'Soup'],
       },
       {
-        id:6,
+        id: 6,
         name: 'Vegetables Pizza',
         price: 9,
         cookTime: '40-50',
@@ -76,7 +95,7 @@ export class FoodService {
         tags: ['FastFood', 'Pizza', 'Lunch'],
       },
       {
-        id:7,
+        id: 7,
         name: 'Spicy Cheese Burger',
         price: 12,
         cookTime: '20-30',
@@ -87,7 +106,7 @@ export class FoodService {
         tags: ['FastFood', 'Burger', 'Lunch'],
       },
       {
-        id:8,
+        id: 8,
         name: 'Vegetables Magento Pizza',
         price: 9,
         cookTime: '45-50',
