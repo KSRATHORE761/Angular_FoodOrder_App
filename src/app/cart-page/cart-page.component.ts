@@ -1,7 +1,8 @@
 import { Component,OnInit } from '@angular/core';
 import { CartService } from '../services/cart.service';
-import { CardItem } from '../shared/models/CarItem';
+import { CartItem } from '../shared/models/CartItem';
 import { Cart } from '../shared/models/Cart';
+import { FoodService } from '../services/food/food.service';
 
 @Component({
   selector: 'app-cart-page',
@@ -11,7 +12,12 @@ import { Cart } from '../shared/models/Cart';
 export class CartPageComponent implements OnInit {
 
   cart!:Cart
-  constructor(private cartService : CartService){
+  constructor(private cartService : CartService,foodService: FoodService){
+    
+    // let foods = foodService.getAll();
+    // cartService.addToCart(foods[1]);
+    // cartService.addToCart(foods[3]);
+    // cartService.addToCart(foods[5]);
     this.setCart();
   }
   ngOnInit(): void {
@@ -20,11 +26,11 @@ export class CartPageComponent implements OnInit {
   setCart(){
     this.cart = this.cartService.getCart();
   }
-  removeFromCart(cartItem:CardItem){
+  removeFromCart(cartItem:CartItem){
     this.cartService.removeFromCart(cartItem.food.id);
     this.setCart();
   }
-  changeQuantity(cartItem:CardItem, quantityInString:string){
+  changeQuantity(cartItem:CartItem, quantityInString:string){
     const quantity = parseInt(quantityInString);
     this.cartService.changeQuantity(cartItem.food.id,quantity);
     this.setCart();

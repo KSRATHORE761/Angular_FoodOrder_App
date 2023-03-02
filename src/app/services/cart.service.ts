@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CardItem } from '../shared/models/CarItem';
+import { CartItem } from '../shared/models/CartItem';
 import { Cart } from '../shared/models/Cart';
 import { Foods } from '../shared/models/food';
 
@@ -15,7 +15,7 @@ export class CartService {
     this.changeQuantity(food.id,cartItem.quantity+1);
     return;
   }
-  this.cart.items.push(new CardItem(food));
+  this.cart.items.push(new CartItem(food));
  }
 
  removeFromCart(foodId:number){
@@ -27,7 +27,7 @@ export class CartService {
     return;
   }
   cartItem.quantity = quantity;
-  cartItem.food.price = quantity * cartItem.food.price;
+  cartItem.price = quantity * cartItem.food.price;
  }
  getCart():Cart{
   return this.cart
